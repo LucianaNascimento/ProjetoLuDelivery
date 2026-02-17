@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import styles from './styles.module.css'
+import SearchIcon  from './search-icon.svg'
 
 type MainColorProps = {
   mainColor: string
@@ -21,7 +22,8 @@ export const SearchInput = ({ mainColor, onSearch}: MainColorProps) => {
       style={{ borderColor: focused ? mainColor : '#ffffff'}}>      
       <div 
         className={styles.button}
-        onClick={() => onSearch(searchValue)}>        
+        onClick={() => onSearch(searchValue)}>
+        <SearchIcon color={mainColor} />        
       </div>
       <input 
       type='text' 

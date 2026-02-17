@@ -9,15 +9,15 @@ export const Banner = () => {
       <Swiper
         slidesPerView={1}
         className={styles.swiper}
-        autoplay={{ delay: 1000, disableOnInteraction: false }}
+        autoplay={{ delay: 3000, disableOnInteraction: false }}
         modules={[Autoplay]}
         loop={true}       
       >
         <SwiperSlide className={styles.slide}>
-          <div className={styles.slideImage}/>
+          <div className={styles.slideImage}>1</div>
         </SwiperSlide>
         <SwiperSlide className={styles.slide}>
-          <div className={styles.slideImage} />
+          <div className={styles.slideImage} >2</div>
         </SwiperSlide>
       </Swiper>
 
