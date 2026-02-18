@@ -3,7 +3,6 @@ import EyeOff from './eyeOff.svg'
 import EyeOn from './eyeOn.svg'
 import { useState } from 'react'
 
-
 type InputFieldProps = {
   color: string
   placeholder: string
