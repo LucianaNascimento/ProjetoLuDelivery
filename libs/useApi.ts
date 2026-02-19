@@ -1,3 +1,5 @@
+import { Product } from "@/types/Product"
+
 export type getTenantResponse = {
   name: string
   slug: string
@@ -5,9 +7,18 @@ export type getTenantResponse = {
   secondColor: string
 }
 
-export const useApi = () => ({
+const TEMPORARYoneProduct: Product = {
+  id: 1,
+  image: '../tmp/burger.png',
+  categoryName: 'Tradicional',
+  productName: 'Hamburguer',
+  price: 15.99,
+  description: 'Hamburguer tradicional com queijo e alface'
+}
 
-  getTenant: (tenantSlug: string): boolean | getTenantResponse => {
+export const useApi = (tenantSlug: string) => ({
+
+  getTenant: (): boolean | getTenantResponse => {
     switch (tenantSlug) {
       case 'lucianaburger':
         return {
@@ -28,5 +39,18 @@ export const useApi = () => ({
       default:
         return false
     }
+  },
+
+  getAllProducts: () => {
+    let products = []
+    for (let i = 0; i < 10; i++) {
+      products.push(TEMPORARYoneProduct)
+      return products
+    }
+  },
+
+  getProduct: (id: string) => {
+    return TEMPORARYoneProduct
   }
+
 })
