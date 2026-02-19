@@ -6,9 +6,12 @@ import {  useApi } from '@/libs/useApi';
 import { GetServerSideProps } from 'next';
 import { Tenant } from '@/types/Tenant';
 import { useAppContext } from '@/contexts/AppContext';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { Product } from '@/types/Product';
 
 const Home = (data: Props) => {
+  const [products, setProducts] = useState<Product[]>(data.products)  
+
   const { tenant, setTenant } = useAppContext()
 
   useEffect(() => {
@@ -48,14 +51,9 @@ const Home = (data: Props) => {
       <Banner />
 
       <div className={styles.grid}>
-        <ProductItem data={{id: 1, image: '../tmp/burger.png', categoryName: 'Tradicional', productName: 'Texas Burger', price: 'R$ 25.50'}} 
-           />
-        <ProductItem data={{id: 2, image: '../tmp/burger.png', categoryName: 'Tradicional', productName: 'Texas Burger', price: 'R$ 25.50'}} 
-        />
-        <ProductItem data={{id: 3, image: '../tmp/burger.png', categoryName: 'Tradicional', productName: 'Texas Burger', price: 'R$ 25.50'}} 
-        />
-        <ProductItem data={{id: 4, image: '../tmp/burger.png', categoryName: 'Tradicional', productName: 'Texas Burger', price: 'R$ 25.50'}} 
-         />
+        {products.map((item, index) => (
+          <ProductItem key={index} data={item} />
+        ))}
         
       </div>
     </div>
@@ -66,6 +64,7 @@ export default Home;
 
 type Props = {
   tenant: Tenant
+  products: Product[]
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -82,10 +81,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
 
+  const products = await api.getAllProducts()
+
   return {
 
     props: {
-      tenant
+      tenant,
+      products
     }
   }
 }

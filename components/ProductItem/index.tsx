@@ -2,6 +2,7 @@ import { Product } from '@/types/Product'
 import styles from './styles.module.css'
 import Link from 'next/link'
 import { useAppContext } from '@/contexts/AppContext'
+import { useFormatter } from '@/libs/useFormatter'
 
 type ProductItemProps = {
   data: Product
@@ -9,6 +10,8 @@ type ProductItemProps = {
 
 export const ProductItem = ({ data }: ProductItemProps) => {
  const {tenant } = useAppContext()
+
+ const formatter = useFormatter()
 
   return (
     <Link style={{textDecoration: 'none' }} href={`/${tenant?.slug}/product/${data.id}`}>
@@ -19,7 +22,7 @@ export const ProductItem = ({ data }: ProductItemProps) => {
             <img src={data.image} alt="Burger" /></div>
           <div className={styles.categoryName}>{data.categoryName}</div>
           <div className={styles.productName}>{data.productName}</div>
-          <div className={styles.price} style={{ color: tenant?.mainColor }}>R$ {data.price}</div>
+          <div className={styles.price} style={{ color: tenant?.mainColor }}>{formatter.formatPrice(data.price)}</div>
         </div>
       </div>
     </Link>

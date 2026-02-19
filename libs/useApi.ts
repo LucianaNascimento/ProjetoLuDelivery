@@ -9,7 +9,7 @@ export type getTenantResponse = {
 
 const TEMPORARYoneProduct: Product = {
   id: 1,
-  image: '../tmp/burger.png',
+  image: '/tmp/burger.png',
   categoryName: 'Tradicional',
   productName: 'Hamburguer',
   price: 15.99,
@@ -18,7 +18,7 @@ const TEMPORARYoneProduct: Product = {
 
 export const useApi = (tenantSlug: string) => ({
 
-  getTenant: (): boolean | getTenantResponse => {
+  getTenant: async () => {
     switch (tenantSlug) {
       case 'lucianaburger':
         return {
@@ -41,15 +41,16 @@ export const useApi = (tenantSlug: string) => ({
     }
   },
 
-  getAllProducts: () => {
+  getAllProducts: async () => {
     let products = []
     for (let i = 0; i < 10; i++) {
       products.push(TEMPORARYoneProduct)
-      return products
     }
+
+    return products
   },
 
-  getProduct: (id: string) => {
+  getProduct: async (id: string) => {
     return TEMPORARYoneProduct
   }
 
