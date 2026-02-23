@@ -2,7 +2,7 @@ import styles from '../../../styles/Product-id.module.css'
 import { useApi } from '@/libs/useApi';
 import { GetServerSideProps } from 'next';
 import { Tenant } from '@/types/Tenant';
-import { useAppContext } from '@/contexts/AppContext';
+import { useAppContext } from '@/contexts/app';
 import { Product } from '@/types/Product';
 import Head from 'next/head';
 import { Header } from '@/components/Header';

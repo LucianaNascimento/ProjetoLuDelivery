@@ -5,12 +5,15 @@ import { ProductItem } from '@/components/ProductItem';
 import {  useApi } from '@/libs/useApi';
 import { GetServerSideProps } from 'next';
 import { Tenant } from '@/types/Tenant';
-import { useAppContext } from '@/contexts/AppContext';
+import { useAppContext } from '@/contexts/app';
+import { useAuthContext } from '@/contexts/auth';
 import { useEffect, useState } from 'react';
 import { Product } from '@/types/Product';
+import { Sidebar } from '@/components/Sidebar';
 
 const Home = (data: Props) => {
-  const [products, setProducts] = useState<Product[]>(data.products)  
+  const [products, setProducts] = useState<Product[]>(data.products) 
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const { tenant, setTenant } = useAppContext()
 
@@ -33,12 +36,14 @@ const Home = (data: Props) => {
             </div>
           </div>
           <div className={styles.headerTopRight}>
-            <div className={styles.menuButton}>
+            <div className={styles.menuButton}
+            onClick={() => setSidebarOpen(true)}>
               <div className={styles.menuButtonLine} style={{backgroundColor: tenant?.mainColor}}></div>
               <div className={styles.menuButtonLine} style={{backgroundColor: tenant?.mainColor}}></div>
               <div className={styles.menuButtonLine} style={{backgroundColor: tenant?.mainColor}}></div>
             </div>
-
+            
+            <Sidebar tenant={data.tenant} open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
           </div>
         </div>
         <div className={styles.headerBottom}>

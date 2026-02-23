@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import styles from './styles.module.css'
 import SearchIcon  from './search-icon.svg'
-import { useAppContext } from '@/contexts/AppContext'
+import { useAppContext } from '@/contexts/app'
 
 type MainColorProps = {
   onSearch: (searchValue: string) => void
