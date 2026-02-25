@@ -1,4 +1,5 @@
 import { Product } from "@/types/Product"
+import { User } from "@/types/User"
 
 export type getTenantResponse = {
   name: string
@@ -36,6 +37,14 @@ export const useApi = (tenantSlug: string) => ({
           secondColor: '#a0c4ff'
         }
         break;
+      case 'texasbbq':
+        return {
+          name: 'Texas BBQ',
+          slug: 'texasbbq',
+          mainColor: '#6ab70a',
+          secondColor: '#e0e0e0'
+        }
+        break;
       default:
         return false
     }
@@ -44,14 +53,26 @@ export const useApi = (tenantSlug: string) => ({
   getAllProducts: async () => {
     let products = []
     for (let i = 0; i < 10; i++) {
-      products.push(TEMPORARYoneProduct)
+      products.push({
+        ...TEMPORARYoneProduct,
+        id: i + 1
+    })
     }
 
     return products
   },
 
-  getProduct: async (id: string) => {
-    return TEMPORARYoneProduct
+  getProduct: async (id: number) => {
+    return { ...TEMPORARYoneProduct, id }
+  },
+
+  authorizeToken: async (token: string): Promise<User | false> => {
+    if (!token) return false
+
+    return {
+      name: 'Luciana',
+      email: 'luciana@email.com'
+    }
   }
 
 })

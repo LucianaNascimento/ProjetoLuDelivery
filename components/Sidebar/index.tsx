@@ -3,6 +3,8 @@ import styles from './styles.module.css'
 import { Button } from '../Button'
 import { Tenant } from '@/types/Tenant'
 import { SidebarMenuItem } from '../SidebarMenuItem'
+import { use } from 'react'
+import { useRouter } from 'next/router'
 
 type SidebarProps = {
   tenant: Tenant
@@ -11,7 +13,9 @@ type SidebarProps = {
 }
 
 export const Sidebar = ({ tenant, open, onClose }: SidebarProps) => {
-  const { user } = useAuthContext()
+  const { user, setToken } = useAuthContext()
+
+  const router = useRouter()
 
   return (
     <div className={styles.container}
@@ -30,7 +34,7 @@ export const Sidebar = ({ tenant, open, onClose }: SidebarProps) => {
               <Button
                 color={tenant?.mainColor}
                 label="Fazer Login"
-                onclick={() => { }}
+                onclick={() => router.push(`/${tenant.slug}/login`)}
                 fill
               />
             }
@@ -42,17 +46,19 @@ export const Sidebar = ({ tenant, open, onClose }: SidebarProps) => {
         </div>
         <div className={styles.line}></div>
         <div className={styles.menu}>
-          <SidebarMenuItem color={tenant?.mainColor} label="Cardápio" icon="menu" onClick={() => { }} />
-          <SidebarMenuItem color={tenant?.mainColor} label="Sacola" icon="bag" onClick={() => { }} />
-          <SidebarMenuItem color={tenant?.mainColor} label="Favoritos" icon="favorites" onClick={() => { }} />
-          <SidebarMenuItem color={tenant?.mainColor} label="Meus Pedidos" icon="my-orders" onClick={() => { }} />
-          <SidebarMenuItem color={tenant?.mainColor} label="Configurações" icon="config" onClick={() => { }} />
-
-
-
-          <SidebarMenuItem color={tenant?.mainColor} label="Sair" icon="logout" onClick={() => { }} />
-
-
+          <SidebarMenuItem color="#6a7d8b" label="Cardápio" icon="menu" onClick={onClose} />
+          <SidebarMenuItem color="#6a7d8b" label="Sacola" icon="bag" onClick={() => router.push(`/${tenant.slug}/cart`)} />
+          <SidebarMenuItem disabled color="#6a7d8b" label="Favoritos" icon="favorites" onClick={() => { }} />
+          <SidebarMenuItem color="#6a7d8b" label="Meus Pedidos" icon="my-orders" onClick={() => router.push(`/${tenant.slug}/orders`)} />
+          <SidebarMenuItem disabled color="#6a7d8b" label="Configurações" icon="config" onClick={() => { }} />          
+        </div>
+        <div className={styles.menuButton}>
+          {user &&
+            <SidebarMenuItem color="#6a7d8b" label="Sair" icon="logout" onClick={() => { 
+              setToken('')
+              onClose()
+            }} />
+          }          
         </div>
       </div>
 

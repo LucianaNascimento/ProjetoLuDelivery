@@ -1,0 +1,16 @@
+.container {
+  font-weight: 400;
+  font-size: 16px;
+  color: #6a7d8b;
+  padding: 24px 0;
+}
+
+.container span {
+  margin-left: 24px;
+}
+
+.disabled {
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+

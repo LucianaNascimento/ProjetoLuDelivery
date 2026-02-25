@@ -11,9 +11,10 @@ type SidebarMenuItemProps = {
   label: string
   icon: 'bag' | 'favorites' | 'my-orders' | 'menu' | 'config' | 'logout'
   onClick: () => void
+  disabled?: boolean
 }
 
-export const SidebarMenuItem = ({color, label, icon, onClick}: SidebarMenuItemProps) => {
+export const SidebarMenuItem = ({color, label, icon, onClick, disabled}: SidebarMenuItemProps) => {
   return (
     <div className={styles.container} onClick={onClick}>
       {icon === 'bag' && <BagIcon color={color} />}
@@ -22,7 +23,7 @@ export const SidebarMenuItem = ({color, label, icon, onClick}: SidebarMenuItemPr
       {icon === 'my-orders' && <MyOrdersIcon color={color} />}           
       {icon === 'config' && <ConfigIcon color={color} /> }
       {icon === 'logout' && <LogoutIcon color={color} />}
-      <span className={styles.label}>{label}</span>
+      <span className={disabled ? styles.disabled : ''}>{label}</span>
     </div>
   )
 }
